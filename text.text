@@ -1,0 +1,31 @@
+  // if (!this.editor) {
+      //   // Ensure editor is initialized
+      //   return
+      // }
+
+      // const { tr } = this.editor.view.state
+
+      // if (!tr.selection) {
+      //   // Ensure selection is defined
+      //   return
+      // }
+
+      // if (val === 'undo') {
+      //   this.editor.chain().focus().undo().run()
+      // } else if (val === 'redo') {
+      //   this.editor.chain().focus().redo().run()
+      // } else if (val === 'cut') {
+      //   this.editor.commands.cut()
+      // } else if (val === 'copy') {
+      //   this.editor.commands.copy()
+      // } else if (val === 'paste') {
+      //   this.editor.commands.paste()
+      // } else if (val === 'increaseSize') {
+      //   // this.editor.chain().focus().increaseFontSize().run();
+      // }
+
+      // if (val === 'increaseSize') {
+      //   this.editor.commands.increaseFontSizeCommand()()
+      // }
+
+      // this.$refs.undoFuncHandler.takeFirst(val)
