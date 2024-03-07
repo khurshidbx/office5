@@ -24,6 +24,8 @@
 // import { TextStyle } from '@tiptap/extension-text-style';
 // import { setFontSize } from '@tiptap/extension-text-style'
 import { Editor } from '@tiptap/vue-2'
+// import { Schema } from 'prosemirror-model'
+// import { schema } from 'prosemirror-schema-basic'
 import StarterKit from '@tiptap/starter-kit'
 import HeaderBottom from '../components/Header/HeaderBottom.vue'
 import HeaderTop from '../components/Header/HeaderTop.vue'
@@ -68,16 +70,9 @@ export default {
   mounted() {
     this.editor = new Editor({
       content: ``,
-      extensions: [
-        StarterKit,
-        // Define the fontSize mark in the schema
-        // FontSize.configure({
-        //   fontSizes: [12, 14, 16, 18, 20], // Customize available font sizes
-        // }),
-      ],
+      extensions: [StarterKit],
     })
-
-    // this.editor = this.$refs.editorContent.editor
+    // console.log(this.$ref)
   },
   beforeDestroy() {
     this.editor.destroy()
@@ -87,34 +82,39 @@ export default {
       const { state } = this.editor
       const { from, to } = state.selection
 
+      const selectedText = state.doc.textBetween(from, to, ' ')
+      // const editor = this.$refs.editor
+      // if (this.editor && this.editor.isActive('textSelection')) {
+      this.editor.chain().focus().setFont({ size: '24px' }).run()
+      // }
+
+      console.log(state.schema.marks.bold, 'hello', selectedText)
+
       // Check if the from and to positions are within range
-      if (
-        from >= 0 &&
-        from <= state.doc.content.size &&
-        to >= 0 &&
-        to <= state.doc.content.size
-      ) {
-        // Get the selected text
-        const selectedText = state.doc.textBetween(from, to, ' ')
-        const tr = state.tr
-        // // Apply styling to the selected text
-        tr.addMark(
-          from,
-          to,
-          state.schema.marks.fontSize.create({ size: '10px' })
-        )
+      // if (
+      //   from >= 0 &&
+      //   from <= state.doc.content.size &&
+      //   to >= 0 &&
+      //   to <= state.doc.content.size
+      // ) {
+      // Get the selected text
 
-        // Log the selected text to the console
-        console.log(state.schema.marks.fonSize, "hello", selectedText)
+      // const tr = state.tr
+      // tr.addMark(
+      //   from,
+      //   to,
+      //   state.schema.marks.fontSize.create({ size: '10px' })
+      // )
 
-        // Apply the transaction to the editor
-        // this.editor.dispatch(tr)
+      // Log the selected text to the console
 
-        // Log the selected text to the console
-        console.log(selectedText)
-      } else {
-        console.warn('Selection is out of range')
-      }
+      // Apply the transaction to the editor
+      // this.editor.dispatch(tr)
+
+      // Log the selected text to the console
+      // } else {
+      //   console.warn('Selection is out of range')
+      // }
     },
 
     changeFontSize() {
